@@ -1,5 +1,5 @@
 from django.test import TestCase
-
+from django.test import Client
 # Create your tests here.
 
 from base.models import Task
@@ -8,10 +8,25 @@ from django.core.urlresolvers import reverse
 
 class TaskListViewTest(TestCase):
 
-    def test_view_url_exists_at_desired_location(self):
-        client = Client()
-        resp = client.get('/login')
-        self.assertEqual(resp.status_code, 200)
+    def setUp(self):
+        self.credentials = {
+            'username': 'testuser',
+            'password': 'secret'}
+        User.objects.create_user(**self.credentials)
+
+    def test_login(self):
+        # send login data
+        response = self.client.post('/login', self.credentials, follow=True)
+        # should be logged in now
+        self.assertEqual(response.status_code, 200)
+
+
+    # def test_view_url_exists_at_desired_location(self):
+    #     client = Client()
+    #     resp = client.get('/login')
+
+
+    #     self.assertEqual(resp.status_code, 200)
 
 '''
     def test_view_url_accessible_by_name(self):
@@ -28,7 +43,7 @@ class TaskListViewTest(TestCase):
         resp = self.client.get(reverse('authors'))
         self.assertEqual(resp.status_code, 200)
         self.assertTrue('is_paginated' in resp.context)
-        self.assertTrue(resp.context['is_paginated'] == True)
+        self.assertTrue(resp.context['is_paginated'] == True)OCREATE DATABASE\
         self.assertTrue( len(resp.context['author_list']) == 10)
 
     def test_lists_all_authors(self):

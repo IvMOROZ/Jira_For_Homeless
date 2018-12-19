@@ -10,10 +10,9 @@ pathlib2==2.1.0
 pexpect==4.2.0
 pickleshare==0.7.3
 prompt-toolkit==1.0.3
-psycopg2==2.7
 ptyprocess==0.5.1
 simplegeneric==0.8.1
 six==1.10.0
 traitlets==4.2.2
 wcwidth==0.1.7
-wsgiref==0.1.2
+
