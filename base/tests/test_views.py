@@ -8,10 +8,21 @@ from django.core.urlresolvers import reverse
 
 class TaskListViewTest(TestCase):
 
-    def test_view_url_exists_at_desired_location(self):
-        client = Client()
-        resp = client.get('/login')
-        self.assertEqual(resp.status_code, 200)
+    def setUp(self):
+        self.credentials = {
+            'username': 'testuser',
+            'password': 'secret'}
+        User.objects.create_user(**self.credentials)
+    def test_login(self):
+        # send login data
+        response = self.client.post('/login', self.credentials, follow=True)
+        # should be logged in now
+        self.assertEqual(response.status_code, 200)
+
+    # def test_view_url_exists_at_desired_location(self):
+    #     client = Client()
+    #     resp = client.get('/login')
+    #     self.assertEqual(resp.status_code, 200)
 
 '''
     def test_view_url_accessible_by_name(self):
