@@ -15,6 +15,8 @@ class TaskModelTest(TestCase):
         #Set up non-modified objects used by all test method
         test_user = User.objects.create(username='testuser')
         Task.objects.create(title='test_title', description='test_description', owner=test_user)
+        Assignment.objects.create(student=test_user)
+        Assignment.objects.create(student=test_user)
 
     def test_title_label(self):
         task = Task.objects.get(id=1)
@@ -46,14 +48,7 @@ class TaskModelTest(TestCase):
         modified_time = task.modified_time
         self.assertFalse(modified_time)
 
-
-class AssignmentTest(TestCase):
-
-    @classmethod
-    def setUpTestData(cls):
-        #Set up non-modified objects used by all test method
-        test_user = User.objects.create(username='testuser')
-        Assignment.objects.create(student=test_user)
+##############Assignments tests ###################
 
     def test_assigment_exist(self):
         sign=Assignment.objects.get(id=1)
@@ -64,3 +59,42 @@ class AssignmentTest(TestCase):
         sign=Assignment.objects.get(id=1)
         status=sign.status
         self.assertEquals(status, 1)
+
+#############Full task test####################
+    def test_assigment_for_user(self):
+        task=Task.objects.get(id=1)
+        task.save()
+        sign=Assignment.objects.get(id=1)
+        task.assignments.add(sign)
+        self.assertEquals(task.owner, task.assignments.get(id=1).student)
+
+    def test_many_to_many_relationship(self):
+        task=Task.objects.get(id=1)
+        task.save()
+        sign=Assignment.objects.get(id=1)
+        task.assignments.add(sign)
+        sign1=Assignment.objects.get(id=2)
+        task.assignments.add(sign1)
+        self.assertTrue(task.owner == task.assignments.get(id=1).student
+                        and task.owner == task.assignments.get(id=2).student)
+
+    def test_assigment_change_status(self):
+        task=Task.objects.get(id=1)
+        task.save()
+        sign=Assignment.objects.get(id=1)
+        task.assignments.add(sign)
+        sign = task.assignments.get(id=1)
+        sign.status = 2
+        sign.save()
+        self.assertEquals(2, task.assignments.get(id=1).status)
+
+    def test_task_change_assignee(self):
+        test_user1 = User.objects.create(username='testuser1')
+        task=Task.objects.get(id=1)
+        task.save()
+        sign=Assignment.objects.get(id=1)
+        task.assignments.add(sign)
+        sign = task.assignments.get(id=1)
+        sign.student = test_user1
+        sign.save()
+        self.assertEquals(test_user1, task.assignments.get(id=1).student)

@@ -77,9 +77,9 @@ WSGI_APPLICATION = 'tasker.wsgi.application'
 
 DATABASES = { 'default': {
         'ENGINE': "django.db.backends.postgresql_psycopg2",
-        'NAME': 'tasker',             
-        'USER': 'root',         
-        'PASSWORD': 'passme',       
+        'NAME': 'tasker',
+        'USER': 'root',
+        'PASSWORD': 'passme',
         'HOST': 'localhost',
         'PORT': '5432',
     }
@@ -124,3 +124,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = ( os.path.join(BASE_DIR, "static"), )
+LOGIN_REDIRECT_URL = '/'
