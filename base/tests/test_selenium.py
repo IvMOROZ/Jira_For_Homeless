@@ -1,3 +1,4 @@
+'''
 from django.contrib.auth.models import User
 from django.contrib.staticfiles.testing import LiveServerTestCase
 from django.core.urlresolvers import reverse
@@ -152,3 +153,4 @@ class AdminTestCase(LiveServerTestCase):
         self.webdriver.find_element_by_xpath('//input[@value="Yes, I\'m sure"]').click()
         self.assertIn("Select user to change", self.webdriver.title)
         self.tearDown()
+'''

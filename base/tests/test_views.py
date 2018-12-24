@@ -1,3 +1,4 @@
+'''
 from django.test import TestCase
 
 # Create your tests here.
@@ -10,12 +11,13 @@ class TaskListViewTest(TestCase):
 
     def setUp(self):
         self.credentials = {
-            'username': 'testuser',
-            'password': 'secret'}
+            'username': 'admin',
+            'password': '1qazxsw2'}
         User.objects.create_user(**self.credentials)
+
     def test_login(self):
         # send login data
-        response = self.client.post('/login', self.credentials, follow=True)
+        response = self.client.post('/login)
         # should be logged in now
         self.assertEqual(response.status_code, 200)
 
@@ -24,7 +26,6 @@ class TaskListViewTest(TestCase):
     #     resp = client.get('/login')
     #     self.assertEqual(resp.status_code, 200)
 
-'''
     def test_view_url_accessible_by_name(self):
         resp = self.client.get(reverse('authors'))
         self.assertEqual(resp.status_code, 200)
