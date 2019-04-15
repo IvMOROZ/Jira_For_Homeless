@@ -25,4 +25,3 @@ class Task(models.Model):
             self.created = timezone.now()
         self.modified = timezone.now()
         return super(Task, self).save(*args, **kwargs)
-b
