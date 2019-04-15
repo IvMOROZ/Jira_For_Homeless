@@ -53,7 +53,6 @@ Jira это слишком сложно и дорого для тебя.
 Web-сервер - Django (Язык программирования - Python)
 База данных - PostgeSQL
 
-
 ### Frontend:
 
 Boostrap
