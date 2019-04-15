@@ -5,7 +5,7 @@ from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin
 from base.models import Task, Assignment
 
-# Create your views here.
+# Create your views here
 
 class Home(LoginRequiredMixin, View):
     template_name = "home.html"
